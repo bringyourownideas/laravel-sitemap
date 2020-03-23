@@ -1,0 +1,43 @@
+{
+    "name": "bringyourownideas/laravel-sitemap",
+    "description": "A simple website crawler & sitemap generator without headless browser for Laravel 5.8+",
+    "keywords": [
+        "laravel sitemap",
+        "site crawler",
+        "sitemap generator",
+        "sitemap.xml"
+    ],
+    "homepage": "https://bringyourownideas.com",
+    "support": {
+        "issues": "https://github.com/bringyourownideas/laravel-sitemap/issues",
+        "source": "https://github.com/bringyourownideas/laravel-sitemap"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Peter Thaleikis",
+            "homepage": "https://peterthaleikis.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "laravel/framework": "^5.8|^6.0",
+        "vdb/php-spider": "*"
+    },
+    "require-dev": {
+        "symfony/thanks": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BringYourOwnIdeas\\LaravelSitemap\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BringYourOwnIdeas\\LaravelSitemap\\SitemapServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
