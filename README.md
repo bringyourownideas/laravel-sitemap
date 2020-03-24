@@ -1,10 +1,10 @@
 # [Laravel Sitemap Generator](https://github.com/bringyourownideas/laravel-sitemap)
 
-[![Latest Stable Version](https://poser.pugx.org/bringyourownideas/laravel-sitemap/version.svg)](https://github.com/bringyourownideas/laravel-sitemap/releases) [![Latest Unstable Version](https://poser.pugx.org/bringyourownideas/laravel-sitemap/v/unstable.svg)](https://packagist.org/packages/bringyourownideas/laravel-sitemap) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bringyourownideas/laravel-sitemap/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bringyourownideas/laravel-sitemap/?branch=master) [![Total Downloads](https://poser.pugx.org/bringyourownideas/laravel-sitemap/downloads.svg)](https://packagist.org/packages/bringyourownideas/laravel-sitemap) [![License](https://poser.pugx.org/bringyourownideas/laravel-sitemap/license.svg)](https://github.com/bringyourownideas/laravel-sitemap/blob/master/LICENSE)
+[![Latest Stable Version](https://poser.pugx.org/bringyourownideas/laravel-sitemap/version.svg)](https://github.com/bringyourownideas/laravel-sitemap/releases) [![Latest Unstable Version](https://poser.pugx.org/bringyourownideas/laravel-sitemap/v/unstable.svg)](https://packagist.org/packages/bringyourownideas/laravel-sitemap) [![Total Downloads](https://poser.pugx.org/bringyourownideas/laravel-sitemap/downloads.svg)](https://packagist.org/packages/bringyourownideas/laravel-sitemap) [![License](https://poser.pugx.org/bringyourownideas/laravel-sitemap/license.svg)](https://github.com/bringyourownideas/laravel-sitemap/blob/master/LICENSE)
 
 A simple website crawler using [php-spider](https://github.com/mvdbos/php-spider) and SimpleXMLElement to generate a sitemap.xml-file. The file will be stored in the `public/` directory.
 
-The sitemap generator is using the meta tag `article:modified_time` to identify the last modification. `Noindex` in robots meta-tag will be considered. If a canoncial URL is set in the document, this one will be used instead.
+The sitemap generator is using the meta tag `article:modified_time` to identify the last modification. `Noindex` in robots meta-tag will be considered and the page will be left out. If a canoncial URL is set in the document, this one will be used instead. Priorities are guessed based on the depth of the page in the website.
 
 ## Please note: This package is in active development and might change as it's been developed. Use with care!
 
