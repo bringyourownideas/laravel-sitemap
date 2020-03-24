@@ -38,7 +38,20 @@ The package registers a artisan command called `generate:sitemap`. This triggers
 If you'd like to update the sitemap.xml regularly, you can add a new line in `app/Console/Kernel.php`, in the schedule function:
 
 ```php
-$schedule->command('generate:sitemap')->daily();
+/**
+ * Define the application's command schedule.
+ *
+ * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+ * @return void
+ */
+protected function schedule(Schedule $schedule)
+{
+    $schedule->command('generate:sitemap')->daily();
+
+    // ...or with a defined time...
+
+    $schedule->command('generate:sitemap')->daily()->at('02:50');
+}
 ```
 
 ## MISC: [Future ideas/development, issues](https://github.com/bringyourownideas/laravel-sitemap/issues), [Contributing](https://github.com/bringyourownideas/laravel-sitemap/blob/master/CONTRIBUTING), [License](https://github.com/bringyourownideas/laravel-sitemap/blob/master/LICENSE)
