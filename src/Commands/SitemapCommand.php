@@ -2,9 +2,9 @@
 
 namespace BringYourOwnIdeas\LaravelSitemap\Commands;
 
-use SimpleXMLElement;
-use DOMDocument;
 use Exception;
+use DOMDocument;
+use SimpleXMLElement;
 use Illuminate\Console\Command;
 use Symfony\Component\EventDispatcher\Event;
 use VDB\Spider\Event\SpiderEvents;
@@ -23,10 +23,12 @@ class SitemapCommand extends Command
     /**
      * @var string
      */
-    protected $description = 'Generate the sitemap.xml file';
+    protected $description = 'Crawl the site and generate the sitemap.xml file';
 
     /**
      * generate the sitemap
+     *
+     * @return void
      */
     public function handle()
     {
@@ -45,6 +47,9 @@ class SitemapCommand extends Command
 
     /**
      * crawler over the website.
+     *
+     * @param string $url
+     * @return array $resources
      */
     protected function crawl_website($url)
     {
@@ -125,6 +130,9 @@ class SitemapCommand extends Command
 
     /**
      * write the sitemap as a file.
+     *
+     * @param array $resources
+     * @return void
      **/
     protected function write_sitemap($resources)
     {
