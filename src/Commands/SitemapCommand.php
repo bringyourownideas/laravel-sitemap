@@ -150,9 +150,9 @@ class SitemapCommand extends Command
 
         // beautify XML (actually not needed, but neat)
         $dom = new DOMDocument;
-        $dom->preserveWhiteSpace = FALSE;
+        $dom->preserveWhiteSpace = false;
         $dom->loadXML($urlset->asXML());
-        $dom->formatOutput = TRUE;
+        $dom->formatOutput = true;
 
         // write file
         try {

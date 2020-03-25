@@ -1,6 +1,6 @@
 {
     "name": "bringyourownideas/laravel-sitemap",
-    "description": "A simple website crawler & sitemap generator without headless browser for Laravel 5.8+",
+    "description": "A simple website crawler & sitemap generator without a headless browser for Laravel 5.8+",
     "keywords": [
         "laravel sitemap",
         "site crawler",
@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": ">=7.0",
-        "laravel/framework": "^5.5|^6.0",
+        "laravel/framework": "^5.5|^6.0|^7.0",
         "vdb/php-spider": "*"
     },
     "require-dev": {
