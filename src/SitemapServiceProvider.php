@@ -15,7 +15,10 @@ class SitemapServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('command.generate:sitemap', SitemapCommand::class);
+        $this->app->bind(
+            'command.generate:sitemap',
+            SitemapCommand::class
+        );
 
         $this->commands([
             'command.generate:sitemap',
