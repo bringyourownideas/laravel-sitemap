@@ -26,27 +26,27 @@ class SitemapCommand extends Command
     protected $description = 'Crawl the site and generate the sitemap.xml file';
 
     /**
-     * generate the sitemap
+     * Generate the sitemap
      *
      * @return void
      */
     public function handle()
     {
-        // crawl the site
+        // Crawl the site
         $this->info('Starting site crawl...');
         $resources = $this->crawl_website(env('APP_URL'));
 
-        // write the sitemap
+        // Write the sitemap
         $this->info('Writing sitemap.xml into public directory...');
         $this->write_sitemap($resources);
 
-        // signal completion
+        // Signal completion
         $this->info('Sitemap generation completed.');
     }
 
 
     /**
-     * crawler over the website.
+     * Crawler over the website.
      *
      * @param string $url
      * @return array $resources
@@ -93,7 +93,7 @@ class SitemapCommand extends Command
         $this->comment("\nResources:");
         $resources = [];
         foreach ($spider->getDownloader()->getPersistenceHandler() as $resource) {
-            // get URL
+            // Get URL
             $url = $resource->getUri()->toString();
 
             // Does this page have a noindex?
@@ -129,32 +129,32 @@ class SitemapCommand extends Command
     }
 
     /**
-     * write the sitemap as a file.
+     * Write the sitemap as a file.
      *
      * @param array $resources
      * @return void
      **/
     protected function write_sitemap($resources)
     {
-        // prepare XML
+        // Prepare XML
         $urlset = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.sitemaps.org/schemas/sitemap/0.9 https://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"></urlset>');
 
-        // add all resources in
+        // Add all resources in
         foreach ($resources as $url => $lastmod) {
             $entry = $urlset->addChild('url');
             $entry->addChild('loc', $url);
             $entry->addChild('lastmod', $lastmod);
-            $entry->addChild('priority', round((1 - .05 * substr_count($url, '/')), 1));
+            $entry->addChild('priority', round((1 - .05 * Substr_count($url, '/')), 1));
             $entry->addChild('changefreq', 'monthly');
         }
 
-        // beautify XML (actually not needed, but neat)
+        // Beautify XML (actually not needed, but neat)
         $dom = new DOMDocument;
         $dom->preserveWhiteSpace = false;
         $dom->loadXML($urlset->asXML());
         $dom->formatOutput = true;
 
-        // write file
+        // Write file
         try {
             file_put_contents(public_path() . '/sitemap.xml', $dom->saveXML());
         } catch (Exception $exception) {
