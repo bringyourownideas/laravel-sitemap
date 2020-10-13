@@ -6,7 +6,6 @@ A simple website crawler using [php-spider](https://github.com/mvdbos/php-spider
 
 The sitemap generator is using the meta tag `article:modified_time` to identify the last modification. `Noindex` in robots meta-tag will be considered and the page will be left out. If a canoncial URL is set in the document, this one will be used instead. Priorities are guessed based on the depth of the page in the website.
 
-## Please note: This package is in active development and might change as it's been developed. Use with care!
 
 ## Support
 
@@ -33,7 +32,7 @@ php artisan vendor:publish --provider="BringYourOwnIdeas\LaravelSitemap\SitemapS
 
 The package registers a artisan command called `generate:sitemap`. This triggers a crawl of your site and writing out of the sitemap. For convenience, you can add this to your deployment steps.
 
-### Regular updates of the sitemap
+### Regular Updates of the sitemap
 
 If you'd like to update the sitemap.xml regularly, you can add a new line in `app/Console/Kernel.php`, in the schedule function:
 
