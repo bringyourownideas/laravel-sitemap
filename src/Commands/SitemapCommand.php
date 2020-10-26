@@ -18,7 +18,7 @@ class SitemapCommand extends Command
     /**
      * @var string
      */
-    protected $signature = 'generate:sitemap';
+    protected $signature = 'sitemap:generate';
 
     /**
      * @var string
