@@ -9,19 +9,19 @@ use BringYourOwnIdeas\LaravelSitemap\Commands\SitemapCommand;
 class SitemapServiceProvider extends ServiceProvider
 {
     /**
-     * Register the service provider.
+     * Register the command
      *
      * @return void
      */
     public function register()
     {
         $this->app->bind(
-            'command.generate:sitemap',
+            'command.sitemap:generate',
             SitemapCommand::class
         );
 
         $this->commands([
-            'command.generate:sitemap',
+            'command.sitemap:generate',
         ]);
     }
 }
