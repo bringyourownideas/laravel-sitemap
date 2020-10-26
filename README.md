@@ -9,7 +9,7 @@ The sitemap generator is using the meta tag `article:modified_time` to identify 
 
 ## Support
 
-This package supports Laravel 5.5 or newer. Tested and used up to 7.x.
+This package supports Laravel 5.5 or newer. Tested and used up to Laravel 8.
 
 
 ## Installation
