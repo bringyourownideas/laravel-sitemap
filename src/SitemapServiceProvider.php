@@ -9,7 +9,7 @@ use BringYourOwnIdeas\LaravelSitemap\Commands\SitemapCommand;
 class SitemapServiceProvider extends ServiceProvider
 {
     /**
-     * Register the commands.
+     * Register the command
      *
      * @return void
      */
