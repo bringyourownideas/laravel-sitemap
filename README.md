@@ -35,7 +35,7 @@ php artisan vendor:publish --provider="BringYourOwnIdeas\LaravelSitemap\SitemapS
 
 ## Usage
 
-The package registers a artisan command called `generate:sitemap`. This triggers a crawl of your site and writing out of the sitemap. For convenience, you can add this to your deployment steps.
+The package registers a artisan command called `sitemap:generate`. This triggers a crawl of your site and writing out of the sitemap. For convenience, you can add this to your deployment steps.
 
 ### Regular Updates of the sitemap
 
@@ -50,11 +50,11 @@ If you'd like to update the sitemap.xml regularly, you can add a new line in `ap
  */
 protected function schedule(Schedule $schedule)
 {
-    $schedule->command('generate:sitemap')->daily();
+    $schedule->command('sitemap:generate')->daily();
 
     // ...or with a defined time...
 
-    $schedule->command('generate:sitemap')->daily()->at('02:50');
+    $schedule->command('sitemap:generate')->daily()->at('02:50');
 }
 ```
 
