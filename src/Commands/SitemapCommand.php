@@ -5,6 +5,7 @@ namespace BringYourOwnIdeas\LaravelSitemap\Commands;
 use Exception;
 use DOMDocument;
 use SimpleXMLElement;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Symfony\Component\EventDispatcher\Event;
 use VDB\Spider\Event\SpiderEvents;
@@ -141,9 +142,13 @@ class SitemapCommand extends Command
 
         // Add all resources in
         foreach ($resources as $url => $lastmod) {
+            // Ensure the lastmod has a timezone by parsing and writing it out again
+            $lastmod = Carbon::parse($lastmod);
+
+            // Add the node
             $entry = $urlset->addChild('url');
             $entry->addChild('loc', $url);
-            $entry->addChild('lastmod', $lastmod);
+            $entry->addChild('lastmod', $lastmod->format('Y-m-d\TH:i:sP'));
             $entry->addChild('priority', round((1 - .05 * Substr_count($url, '/')), 1));
             $entry->addChild('changefreq', 'monthly');
         }
