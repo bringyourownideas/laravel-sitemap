@@ -144,12 +144,15 @@ class SitemapCommand extends Command
         foreach ($resources as $url => $lastmod) {
             // Ensure the lastmod has a timezone by parsing and writing it out again
             $lastmod = Carbon::parse($lastmod);
+            if ($lastmod->tzName === 'UTC' && date_default_timezone_get() != null) {
+                $lastmod->shiftTimezone(date_default_timezone_get());
+            }
 
             // Add the node
             $entry = $urlset->addChild('url');
             $entry->addChild('loc', $url);
             $entry->addChild('lastmod', $lastmod->format('Y-m-d\TH:i:sP'));
-            $entry->addChild('priority', round((1 - .05 * Substr_count($url, '/')), 1));
+            $entry->addChild('priority', str_replace(',', '.', round((1 - .05 * Substr_count($url, '/')), 1)));
             $entry->addChild('changefreq', 'monthly');
         }
 
