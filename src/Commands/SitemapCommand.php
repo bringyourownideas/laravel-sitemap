@@ -35,11 +35,11 @@ class SitemapCommand extends Command
     {
         // Crawl the site
         $this->info('Starting site crawl...');
-        $resources = $this->crawl_website(env('APP_URL'));
+        $resources = $this->crawlWebsite(env('APP_URL'));
 
         // Write the sitemap
         $this->info('Writing sitemap.xml into public directory...');
-        $this->write_sitemap($resources);
+        $this->writeSitemap($resources);
 
         // Signal completion
         $this->info('Sitemap generation completed.');
@@ -52,7 +52,7 @@ class SitemapCommand extends Command
      * @param string $url
      * @return array $resources
      */
-    protected function crawl_website($url)
+    protected function crawlWebsite($url)
     {
         // Create Spider
         $spider = new Spider($url);
@@ -135,7 +135,7 @@ class SitemapCommand extends Command
      * @param array $resources
      * @return void
      **/
-    protected function write_sitemap($resources)
+    protected function writeSitemap($resources)
     {
         // Prepare XML
         $urlset = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.sitemaps.org/schemas/sitemap/0.9 https://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"></urlset>');
