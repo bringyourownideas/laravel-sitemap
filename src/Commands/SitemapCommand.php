@@ -57,13 +57,14 @@ class SitemapCommand extends Command
         // Create Spider
         $spider = new Spider($url);
 
-        // Add a URI discoverer. Without it, the spider does nothing. In this case, we want <a> tags from a certain <div>
+        // Add a URI discoverer. Without it, the spider does nothing.
+        // In this case, we want <a> tags and the canonical link
         $spider->getDiscovererSet()->set(new XPathExpressionDiscoverer("//a|//link[@rel=\"canonical\"]"));
         $spider->getDiscovererSet()->addFilter(new AllowedHostsFilter([$url], true));
 
-        // Set some sane options for this example. In this case, we only get the first 10 items from the start page.
-        $spider->getDiscovererSet()->maxDepth = 10;
-        $spider->getQueueManager()->maxQueueSize = 100;
+        // Set limits
+        $spider->getDiscovererSet()->maxDepth = 25;
+        $spider->getQueueManager()->maxQueueSize = 1000;
 
         // Let's add something to enable us to stop the script
         $spider->getDispatcher()->addListener(
