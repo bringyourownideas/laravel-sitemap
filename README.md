@@ -14,7 +14,7 @@ Sitemaps are crawled by several search engines in the aim to identify changed pa
 
 ## Support
 
-This package supports Laravel 5.5 or newer. Tested and used up to Laravel 8.
+This package supports Laravel 6.21 or newer. Tested and used up to Laravel 8.
 
 
 ## Installation
