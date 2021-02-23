@@ -113,7 +113,7 @@ class SitemapCommand extends Command
 
             // Set noindex, if disallowed by robots.txt.
             if (!$robots->mayIndex($url)) {
-                $noindex = false;
+                $noindex = true;
             }
 
             // Check if we got a time to?
