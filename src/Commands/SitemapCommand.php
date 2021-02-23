@@ -8,6 +8,7 @@ use SimpleXMLElement;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Symfony\Component\EventDispatcher\Event;
+use Spatie\Robots\Robots;
 use VDB\Spider\Event\SpiderEvents;
 use VDB\Spider\StatsHandler;
 use VDB\Spider\Spider;
@@ -54,6 +55,9 @@ class SitemapCommand extends Command
      */
     protected function crawlWebsite($url)
     {
+        // Load the robots.txt from the site.
+        $robots = Robots::create()->withTxt(config('APP_ENV') . '/robots.txt');
+
         // Create Spider
         $spider = new Spider($url);
 
@@ -103,6 +107,11 @@ class SitemapCommand extends Command
             $noindex = false;
             if ($resource->getCrawler()->filterXpath('//meta[@name="robots"]')->count() > 0) {
                 $noindex = (strpos($resource->getCrawler()->filterXpath('//meta[@name="robots"]')->attr('content'), 'noindex') !== false);
+            }
+
+            // Set noindex, if disallowed by robots.txt.
+            if (!$robots->mayIndex($url)) {
+                $noindex = false;
             }
 
             // Check if we got a time to?
