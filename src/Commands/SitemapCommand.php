@@ -56,7 +56,9 @@ class SitemapCommand extends Command
     protected function crawlWebsite($url)
     {
         // Load the robots.txt from the site.
-        $robots = Robots::create()->withTxt(config('APP_ENV') . '/robots.txt');
+        $robots_url = env('APP_URL') . '/robots.txt';
+        $robots = Robots::create()->withTxt($robots_url);
+        $this->info('Loading robots.txt from ' . $robots_url);
 
         // Create Spider
         $spider = new Spider($url);
