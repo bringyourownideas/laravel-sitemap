@@ -46,7 +46,6 @@ class SitemapCommand extends Command
         $this->info('Sitemap generation completed.');
     }
 
-
     /**
      * Crawler over the website.
      *
@@ -56,9 +55,9 @@ class SitemapCommand extends Command
     protected function crawlWebsite($url)
     {
         // Load the robots.txt from the site.
-        $robots_url = env('APP_URL') . '/robots.txt';
-        $robots = Robots::create()->withTxt($robots_url);
+        $robots_url = $url . '/robots.txt';
         $this->info('Loading robots.txt from ' . $robots_url);
+        $robots = Robots::create()->withTxt($robots_url);
 
         // Create Spider
         $spider = new Spider($url);
@@ -109,11 +108,15 @@ class SitemapCommand extends Command
             $noindex = false;
             if ($resource->getCrawler()->filterXpath('//meta[@name="robots"]')->count() > 0) {
                 $noindex = (strpos($resource->getCrawler()->filterXpath('//meta[@name="robots"]')->attr('content'), 'noindex') !== false);
+
+                $this->info(sprintf(" - Skipping %s (on-page no-index)", $url));
             }
 
             // Set noindex, if disallowed by robots.txt.
             if (!$robots->mayIndex($url)) {
                 $noindex = true;
+
+                $this->info(sprintf(" - Skipping %s (robots.txt no-index)", $url));
             }
 
             // Check if we got a time to?
@@ -126,6 +129,10 @@ class SitemapCommand extends Command
             $canonical = '';
             if ($resource->getCrawler()->filterXpath('//link[@rel="canonical"]')->count() > 0) {
                 $canonical = $resource->getCrawler()->filterXpath('//link[@rel="canonical"]')->attr('href');
+
+                if ($canonical !== $url) {
+                    $this->info(sprintf(" - Canonicalizing %s to %s", $url, $canonical));
+                }
             }
 
             // Only add in if it should be indexed and isn't in the list already...
@@ -133,7 +140,7 @@ class SitemapCommand extends Command
             if (!$noindex && !array_key_exists($url, $resources)) {
                 $resources[$url] = ($time == '') ? date('Y-m-d\Th:i:s') : $time;
 
-                $this->comment(" - Adding $url");
+                $this->comment(sprintf(" - Adding %s", $url));
             }
         }
 

@@ -27,12 +27,6 @@ composer require bringyourownideas/laravel-sitemap
 
 This ensures you receiving later updates automatically. Alternatively, you can install the package manually (not recommended) using the download functionality on GitHub.
 
-If you aren't using [package discovery](https://laravel.com/docs/7.x/packages#package-discovery) you will need to register the ServiceProvider manually. To do so, please run:
-
-```bash
-php artisan vendor:publish --provider="BringYourOwnIdeas\LaravelSitemap\SitemapServiceProvider"
-```
-
 ## Usage
 
 The package registers a artisan command called `sitemap:generate`. This triggers a crawl of your site and writing out of the sitemap. For convenience, you can add this to your deployment steps.
