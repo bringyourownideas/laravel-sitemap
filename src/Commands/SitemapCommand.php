@@ -5,7 +5,7 @@ namespace BringYourOwnIdeas\LaravelSitemap\Commands;
 use Exception;
 use DOMDocument;
 use SimpleXMLElement;
-use BringYourOwnIdeas\LaravelSitemapFilters\UrlFilter;
+use BringYourOwnIdeas\LaravelSitemap\Filters\UrlFilter;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Symfony\Component\EventDispatcher\Event;
