@@ -5,6 +5,7 @@ namespace BringYourOwnIdeas\LaravelSitemap\Commands;
 use Exception;
 use DOMDocument;
 use SimpleXMLElement;
+use BringYourOwnIdeas\LaravelSitemapFilters\UrlFilter;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Symfony\Component\EventDispatcher\Event;
@@ -88,7 +89,7 @@ class SitemapCommand extends Command
 
         // Filter out URLs that have been redirected externally.
         $spider->setDownloader(
-            $spider->getDownloader()->addPostFetchFilter(new Filters\UrlFilter($url))
+            $spider->getDownloader()->addPostFetchFilter(new UrlFilter($url))
         );
 
         // Execute crawl
