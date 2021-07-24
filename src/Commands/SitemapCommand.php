@@ -88,9 +88,9 @@ class SitemapCommand extends Command
         $spider->getDispatcher()->addSubscriber($statsHandler);
 
         // Filter out URLs that have been redirected externally.
-        $spider->setDownloader(
-            $spider->getDownloader()->addPostFetchFilter(new UrlFilter($url))
-        );
+        $downloader = $spider->getDownloader();
+        $downloader->addPostFetchFilter(new UrlFilter($url));
+        $spider->setDownloader($downloader);
 
         // Execute crawl
         $spider->crawl();
