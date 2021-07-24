@@ -36,7 +36,7 @@ class SitemapCommand extends Command
     {
         // Crawl the site
         $this->info('Starting site crawl...');
-        $resources = $this->crawlWebsite(env('APP_URL'));
+        $resources = $this->crawlWebsite(config('app.url'));
 
         // Write the sitemap
         $this->info('Writing sitemap.xml into public directory...');
@@ -55,9 +55,9 @@ class SitemapCommand extends Command
     protected function crawlWebsite($url)
     {
         // Load the robots.txt from the site.
-        $robots_url = $url . '/robots.txt';
-        $this->info('Loading robots.txt from ' . $robots_url);
-        $robots = Robots::create()->withTxt($robots_url);
+        $robotsURL = $url . '/robots.txt';
+        $robots = Robots::create()->withTxt($robotsURL);
+        $this->info('Loading robots.txt from ' . $robotsURL);
 
         // Create Spider
         $spider = new Spider($url);
@@ -85,6 +85,11 @@ class SitemapCommand extends Command
         $statsHandler = new StatsHandler();
         $spider->getQueueManager()->getDispatcher()->addSubscriber($statsHandler);
         $spider->getDispatcher()->addSubscriber($statsHandler);
+
+        // Filter out URLs that have been redirected externally.
+        $spider->setDownloader(
+            $spider->getDownloader()->addPostFetchFilter(new Filters\UrlFilter($url))
+        );
 
         // Execute crawl
         $spider->crawl();

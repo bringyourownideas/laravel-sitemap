@@ -4,7 +4,7 @@
 
 A simple website crawler using [php-spider](https://github.com/mvdbos/php-spider) and SimpleXMLElement to generate a sitemap.xml-file. The file will be stored in the `public/`-directory. It is commonly used with the [SEO-friendly CommonMark Blog Package](https://github.com/spekulatius/laravel-commonmark-blog) at [bring your own ideas](https://bringyourownideas.com).
 
-The sitemap generator is using the meta tag `article:modified_time` to identify the last modification. `Noindex` in robots meta-tag will be considered and the page will be left out. If a canoncial URL is set in the document, this one will be used instead. Priorities are guessed based on the depth of the page in the website.
+The sitemap generator is using the meta tag `article:modified_time` to identify the last modification. `Noindex` in robots meta-tag will be considered and the page will be left out. If a canonical URL is set in the document, this one will be used instead. Priorities are guessed based on the depth of the page in the website.
 
 
 ## Why a Sitemap.xml?
