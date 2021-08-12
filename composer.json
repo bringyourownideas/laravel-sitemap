@@ -22,10 +22,10 @@
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
-        "laravel/framework": "^6.20.12|^7.30.3|^8.4",
+        "php": "^7.4|^8.0",
+        "laravel/framework": "^7.30.4|^8.4|^9.0",
         "guzzlehttp/guzzle": "^7.0",
-        "vdb/php-spider": "^v0.5.2",
+        "vdb/php-spider": "^v0.6",
         "nesbot/carbon": "^2.41",
         "spatie/robots-txt": "^1.0"
     },
@@ -42,6 +42,11 @@
             "providers": [
                 "BringYourOwnIdeas\\LaravelSitemap\\SitemapServiceProvider"
             ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/thanks": false
         }
     }
 }
