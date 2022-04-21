@@ -23,11 +23,11 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
-        "laravel/framework": "^6.20.12|^7.30.3|^8.4",
-        "guzzlehttp/guzzle": "^7.0",
-        "vdb/php-spider": "^v0.5.2",
+        "laravel/framework": "^6.20.12||^7.30.3||^8.4||^9.2",
+        "guzzlehttp/guzzle": "^7.2",
+        "vdb/php-spider": "^v0.6.3",
         "nesbot/carbon": "^2.41",
-        "spatie/robots-txt": "^1.0"
+        "spatie/robots-txt": "^1.0||^2.0"
     },
     "require-dev": {
         "symfony/thanks": "^1.0"

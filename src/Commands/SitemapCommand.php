@@ -4,17 +4,24 @@ namespace BringYourOwnIdeas\LaravelSitemap\Commands;
 
 use Exception;
 use DOMDocument;
-use SimpleXMLElement;
 use Carbon\Carbon;
-use Illuminate\Console\Command;
-use Symfony\Component\EventDispatcher\Event;
-use Spatie\Robots\Robots;
-use VDB\Spider\Event\SpiderEvents;
-use VDB\Spider\StatsHandler;
+use SimpleXMLElement;
 use VDB\Spider\Spider;
-use VDB\Spider\Discoverer\XPathExpressionDiscoverer;
+use Spatie\Robots\Robots;
+use Illuminate\Console\Command;
+use VDB\Spider\Event\SpiderEvents;
+use Symfony\Component\EventDispatcher\Event;
+use VDB\Spider\QueueManager\InMemoryQueueManager;
+use VDB\Spider\QueueManager\QueueManagerInterface;
 use VDB\Spider\Filter\Prefetch\AllowedHostsFilter;
+use VDB\Spider\Discoverer\XPathExpressionDiscoverer;
+use BringYourOwnIdeas\LaravelSitemap\Handlers\StatsHandler;
 
+/**
+ * Class SitemapCommand
+ *
+ * @package BringYourOwnIdeas\LaravelSitemap\Commands
+ */
 class SitemapCommand extends Command
 {
     /**
@@ -64,7 +71,7 @@ class SitemapCommand extends Command
 
         // Add a URI discoverer. Without it, the spider does nothing.
         // In this case, we want <a> tags and the canonical link
-        $spider->getDiscovererSet()->set(new XPathExpressionDiscoverer("//a|//link[@rel=\"canonical\"]"));
+        $spider->getDiscovererSet()->set(new XPathExpressionDiscoverer("//div[@rel=\"canonical\"]//a"));
         $spider->getDiscovererSet()->addFilter(new AllowedHostsFilter([$url], true));
 
         // Set limits
@@ -83,7 +90,9 @@ class SitemapCommand extends Command
         // Add a listener to collect stats to the Spider and the QueueMananger.
         // There are more components that dispatch events you can use.
         $statsHandler = new StatsHandler();
-        $spider->getQueueManager()->getDispatcher()->addSubscriber($statsHandler);
+        /** @var QueueManagerInterface|InMemoryQueueManager $queueManager */
+        $queueManager = $spider->getQueueManager();
+        $queueManager->getDispatcher()->addSubscriber($statsHandler);
         $spider->getDispatcher()->addSubscriber($statsHandler);
 
         // Execute crawl
