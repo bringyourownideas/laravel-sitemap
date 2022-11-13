@@ -71,7 +71,7 @@ class SitemapCommand extends Command
 
         // Add a URI discoverer. Without it, the spider does nothing.
         // In this case, we want <a> tags and the canonical link
-        $spider->getDiscovererSet()->set(new XPathExpressionDiscoverer("//div[@rel=\"canonical\"]//a"));
+        $spider->getDiscovererSet()->set(new XPathExpressionDiscoverer("//a|//link[@rel=\"canonical\"]"));
         $spider->getDiscovererSet()->addFilter(new AllowedHostsFilter([$url], true));
 
         // Set limits
